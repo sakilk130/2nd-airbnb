@@ -1,9 +1,10 @@
 'use client';
 
 import useLoginModal from '@/app/hooks/useLoginModal';
+import useRegisterModal from '@/app/hooks/useRegisterModal';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { AiFillGithub } from 'react-icons/ai';
@@ -15,8 +16,14 @@ import Modal from './Modal';
 
 const LoginModal = () => {
   const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState(false);
+
+  const onToggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
 
   const {
     register,
@@ -31,7 +38,6 @@ const LoginModal = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-
     signIn('credentials', {
       ...data,
       redirect: false,
@@ -74,7 +80,7 @@ const LoginModal = () => {
   );
 
   const footerContent = (
-    <div className="mt-3 flex flex-col gap-4">
+    <div className="flex flex-col gap-4 mt-3">
       <hr />
       <Button
         outline
@@ -88,14 +94,14 @@ const LoginModal = () => {
         icon={AiFillGithub}
         onClick={() => signIn('github')}
       />
-      <div className="mt-4 text-center font-light text-neutral-500">
+      <div className="mt-4 font-light text-center text-neutral-500">
         <div className="flex flex-row items-center justify-center gap-3">
-          <div>Already have an account? </div>
+          <div>First time using Airbnb? </div>
           <div
-            onClick={loginModal.onClose}
+            onClick={onToggle}
             className="cursor-pointer text-neutral-800 hover:underline"
           >
-            Log in{' '}
+            Create an account{' '}
           </div>
         </div>
       </div>

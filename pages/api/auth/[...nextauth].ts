@@ -23,11 +23,11 @@ export const authOptions: NextAuthOptions = {
         email: { label: 'email', type: 'text' },
         password: { label: 'password', type: 'password' },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           throw new Error('Email or password is missing');
         }
-        const user = await client.user.findUnique({
+        const user = await client.user.findFirst({
           where: {
             email: credentials.email,
           },
