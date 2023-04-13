@@ -9,8 +9,8 @@ import LoginModal from './components/modals/LoginModal';
 import getCurrentUser from './actions/getCurrentUser';
 
 export const metadata = {
-  title: 'AirBnb',
-  description: 'AirBnb clone',
+  title: 'Airbnb',
+  description: 'Airbnb clone',
 };
 const font = Nunito({
   subsets: ['latin'],
