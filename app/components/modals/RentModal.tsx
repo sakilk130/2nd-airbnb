@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import Heading from '../Heading';
 import CategoryInput from '../inputs/CategoryInput';
+import CountrySelect from '../inputs/CountrySelect';
 import { categories } from '../navbar/Categories';
 import Modal from './Modal';
 
@@ -42,6 +43,7 @@ const RentModal = () => {
     },
   });
   const category = watch('category');
+  const location = watch('location');
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -68,7 +70,7 @@ const RentModal = () => {
     return 'Back';
   }, [step]);
 
-  const bodyContent = (
+  let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
         title="Which of these best describes your place?"
@@ -89,13 +91,28 @@ const RentModal = () => {
     </div>
   );
 
+  if (step === STEPS.LOCATION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Where is your place located?"
+          subTitle="Help guests find your place"
+        />
+        <CountrySelect
+          value={location}
+          onChange={(value) => setCustomValue('location', value)}
+        />
+      </div>
+    );
+  }
+
   return (
     <Modal
       title="Airbnb your home"
       body={bodyContent}
       isOpen={rentModal.isOpen}
       onClose={rentModal.onClose}
-      onSubmit={rentModal.onClose}
+      onSubmit={onNext}
       actionLabel={actionLabel}
       secondaryLabel={secondaryLabel}
       secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
