@@ -44,7 +44,7 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
   return (
     <Container>
       <Heading title="Reservations" subTitle="Booking of your properties " />
-      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+      <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {reservations.map((reservation) => (
           <ListingCard
             data={reservation.listing}
