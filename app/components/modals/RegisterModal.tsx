@@ -41,6 +41,7 @@ const RegisterModal = () => {
     try {
       await axios.post('/api/register', data);
       registerModal.onClose();
+      loginModal.onOpen();
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -80,7 +81,7 @@ const RegisterModal = () => {
   );
 
   const footerContent = (
-    <div className="flex flex-col gap-4 mt-3">
+    <div className="mt-3 flex flex-col gap-4">
       <hr />
       <Button
         outline
@@ -94,7 +95,7 @@ const RegisterModal = () => {
         icon={AiFillGithub}
         onClick={() => signIn('github')}
       />
-      <div className="mt-4 font-light text-center text-neutral-500">
+      <div className="mt-4 text-center font-light text-neutral-500">
         <div className="flex flex-row items-center justify-center gap-3">
           <div>Already have an account? </div>
           <div
